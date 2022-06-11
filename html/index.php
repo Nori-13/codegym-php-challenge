@@ -67,11 +67,15 @@ $tweet_count = count($tweets);
     <h1 class="my-5">コメント一覧</h1>
     <?php foreach ($tweets as $t) { ?>
       <div class="card mb-3">
-        <div class="card-body">
+       <div class="card-body">
           <p class="card-title"><b><?= "{$t['id']}" ?></b> <?= "{$t['name']}" ?> <small><?= "{$t['updated_at']}" ?></small></p>
           <p class="card-text"><?= "{$t['text']}" ?></p>
           <!--返信課題はここから修正しましょう。-->
+          <?php if (isset($t['reply_id'])) { ?>
           <p>[返信する] [返信元のメッセージ]</p>
+          }else{
+          <p><a href="/view.php?id=<?= "{$t['reply_id']}" ?>">[返信元のメッセージ]</a></p>
+          <?php } ?>
           <!--返信課題はここまで修正しましょう。-->
         </div>
       </div>

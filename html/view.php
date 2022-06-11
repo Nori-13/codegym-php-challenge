@@ -3,8 +3,8 @@ require_once('db.php');
 require_once('functions.php');
 
 /* 返信課題はここからのコードを修正しましょう。 */
-echo 'db.php';
-echo 'functions.php';
+require_once('db.php');
+$t = getTweet($_GET['id']);
 /* 返信課題はここまでのコードを修正しましょう。 */
 ?>
 
@@ -24,6 +24,7 @@ echo 'functions.php';
         <!-- 返信課題はここからのコードを修正しましょう。 -->
           <p class="card-title"><b><?= "{$t['id']}" ?></b> <?= "{$t['name']}" ?> <small><?= "{$t['updated_at']}" ?></small></p>
           <p class="card-text"><?= "{$t['text']}" ?></p>
+          <p>[返信する] [返信元のメッセージ]</p>
         <!-- 返信課題はここまでのコードを修正しましょう。 -->
       </div>
     </div>
