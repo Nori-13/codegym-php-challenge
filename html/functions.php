@@ -88,7 +88,6 @@ function getTweet($id)
     $stmt = getPdo()->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    //var_dump($result);
     return $result;
 }
 /* 返信課題はここからのコードを修正しましょう。 */
