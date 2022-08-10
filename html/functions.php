@@ -49,7 +49,7 @@ function createTweet($text, $user_id)
     return $stmt->execute();
 }
 
-function createReTweet($text, $reply_post_id,$user_id)
+function createReTweet($text, $reply_post_id, $user_id)
 {
     $sql = 'insert into tweets (text, user_id, created_at, updated_at, reply_id)';
     $sql .= ' values (:text, :user_id, :created_at, :updated_at, :reply_id)';
