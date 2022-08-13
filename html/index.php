@@ -36,14 +36,14 @@ function logout()
 
 if ($_POST) { /* POST Requests */
     if (isset($_POST['logout'])) { //ログアウト処理
-    　　logout();
-        header("Location: login.php");
+	      logout();
+              header("Location: login.php");
     } else if (isset($_POST['tweet_textarea'])) { //投稿処理
-        if (isset($_POST['reply_post_id'])) {
-	          newReplyTweet($_POST['tweet_textarea'], $_POST['reply_post_id']);
+    	if (isset($_POST['reply_post_id'])) {
+	      newReplyTweet($_POST['tweet_textarea'], $_POST['reply_post_id']);
         } else {
-            newtweet($_POST['tweet_textarea']);
-            header("Location: index.php");
+              newtweet($_POST['tweet_textarea']);
+              header("Location: index.php");
         }
     }
 }
