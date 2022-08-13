@@ -21,7 +21,7 @@ function newtweet($tweet_textarea)
     createTweet($tweet_textarea, $_SESSION['user_id']);
 }
 
-function newReplyTweet($tweet_textarea,$reply_post_id)
+function newReplyTweet($tweet_textarea, $reply_post_id)
 {
     createReTweet($tweet_textarea, $reply_post_id, $_SESSION['user_id']);
 }
@@ -33,19 +33,19 @@ function logout()
     $_SESSION = [];
     $msg = 'ログアウトしました。';
 }
-
-if ($_POST) { /* POST Requests */ 
-  if (isset($_POST['logout'])) { //ログアウト処理
+ 
+    if ($_POST) { /* POST Requests */ 
+    if (isset($_POST['logout'])) { //ログアウト処理
       logout();
       header("Location: login.php");
-} else if (isset($_POST['tweet_textarea'])) { //投稿処理
+  } else if (isset($_POST['tweet_textarea'])) { //投稿処理
     if (isset($_POST['reply_post_id'])) {
 	    newReplyTweet($_POST['tweet_textarea'], $_POST['reply_post_id']);
-    } else {
-        newtweet($_POST['tweet_textarea']);
-        header("Location: index.php");
-          }
-    }
+  } else {
+      newtweet($_POST['tweet_textarea']);
+      header("Location: index.php");
+         }
+  }
 }
 
 $tweets = getTweets();

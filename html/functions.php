@@ -68,7 +68,7 @@ function createReTweet($text, $reply_post_id, $user_id)
  */
 function getTweets()
 {
-    $sql = 'select t.id, t.text, t.user_id, t.created_at, t.updated_at, t.reply_id, u.name, t.reply_id';
+    $sql = 'select t.id, t.text, t.user_id, t.created_at, t.updated_at, t.reply_id, u.name';
     $sql .= ' from tweets t join users u on t.user_id = u.id';
     $sql .= ' order by t.updated_at desc';
     $stmt = getPdo()->prepare($sql);
