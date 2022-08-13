@@ -73,7 +73,6 @@ function getTweets()
     $sql .= ' order by t.updated_at desc';
     $stmt = getPdo()->prepare($sql);
     $stmt->execute();
-    //var_dump($sql);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     
 }
@@ -84,7 +83,6 @@ function getTweet($id)
     $sql = 'select t.id, t.text, t.user_id, t.created_at, t.updated_at, u.name, t.reply_id';
     $sql .= ' from tweets t join users u on t.user_id = u.id';
     $sql .= ' where t.id =' . "$id";
-    //var_dump($sql);
     $stmt = getPdo()->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
