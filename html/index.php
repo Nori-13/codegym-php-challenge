@@ -75,7 +75,6 @@ function getUserReplyText($post_id) {
 <?php require_once('head.php'); ?>
 
 <body>
-<?php?>
   <div class="container">
     <h1 class="my-5">新規投稿</h1>
     <div class="card mb-3">
