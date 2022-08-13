@@ -33,19 +33,19 @@ function logout()
     $_SESSION = [];
     $msg = 'ログアウトしました。';
 }
- 
-    if ($_POST) { /* POST Requests */ 
+
+if ($_POST) { /* POST Requests */
     if (isset($_POST['logout'])) { //ログアウト処理
-      logout();
-      header("Location: login.php");
-  } else if (isset($_POST['tweet_textarea'])) { //投稿処理
-    if (isset($_POST['reply_post_id'])) {
-	    newReplyTweet($_POST['tweet_textarea'], $_POST['reply_post_id']);
-  } else {
-      newtweet($_POST['tweet_textarea']);
-      header("Location: index.php");
-         }
-  }
+    　　logout();
+        header("Location: login.php");
+    } else if (isset($_POST['tweet_textarea'])) { //投稿処理
+        if (isset($_POST['reply_post_id'])) {
+	          newReplyTweet($_POST['tweet_textarea'], $_POST['reply_post_id']);
+        } else {
+            newtweet($_POST['tweet_textarea']);
+            header("Location: index.php");
+        }
+    }
 }
 
 $tweets = getTweets();
@@ -102,7 +102,7 @@ function getUserReplyText($post_id) {
           <!--返信課題はここから修正しましょう。-->
           <?php if (isset($t['reply_id'])) { ?>
             <a href="index.php?reply=<?= "{$t['id']}" ?>">[返信する]</a> <a href="/view.php?id=<?= "{$t['reply_id']}" ?>">[返信元のメッセージ]</a>
-          <?php }else{ ?>
+          <?php } else { ?>
             <p><a href="index.php?reply=<?= "{$t['id']}" ?>">[返信する]</a></p>
           <?php } ?>
           <!--返信課題はここまで修正しましょう。-->
