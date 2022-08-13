@@ -36,14 +36,14 @@ function logout()
 
 if ($_POST) { /* POST Requests */
     if (isset($_POST['logout'])) { //ログアウト処理
-	      logout();
-              header("Location: login.php");
+        logout();
+        header("Location: login.php");
     } else if (isset($_POST['tweet_textarea'])) { //投稿処理
-    	if (isset($_POST['reply_post_id'])) {
-	      newReplyTweet($_POST['tweet_textarea'], $_POST['reply_post_id']);
+        if (isset($_POST['reply_post_id'])) {
+            newReplyTweet($_POST['tweet_textarea'], $_POST['reply_post_id']);
         } else {
-              newtweet($_POST['tweet_textarea']);
-              header("Location: index.php");
+            newtweet($_POST['tweet_textarea']);
+            header("Location: index.php");
         }
     }
 }
@@ -81,8 +81,8 @@ function getUserReplyText($post_id) {
       <div class="card-body">
         <form method="POST">
           <textarea class="form-control" type=textarea name="tweet_textarea" ><?php if (isset($_GET['reply'])) { 
-	          echo getUserReplyText($_GET['reply']);
-      } ?></textarea>
+          echo getUserReplyText($_GET['reply']);
+          } ?></textarea>
           <!-- 返信課題はここからのコードを修正しましょう。 -->
           <?php if (isset($_GET['reply'])) { ?>
             <input type="hidden" name="reply_post_id" value="<?= "{$_GET['reply']}" ?>"/>
