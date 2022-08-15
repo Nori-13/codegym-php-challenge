@@ -17,7 +17,7 @@ require_once('functions.php');
  */
 function newtweet($tweet_textarea)
 {
-    // 汎用ログインチェック処理をルータに作る。早期リターンで
+  // 汎用ログインチェック処理をルータに作る。早期リターンで
     createTweet($tweet_textarea, $_SESSION['user_id']);
 }
 
@@ -81,7 +81,7 @@ function getUserReplyText($post_id) {
       <div class="card-body">
         <form method="POST">
           <textarea class="form-control" type=textarea name="tweet_textarea" ><?php if (isset($_GET['reply'])) { 
-          echo getUserReplyText($_GET['reply']);
+            echo getUserReplyText($_GET['reply']);
           } ?></textarea>
           <!-- 返信課題はここからのコードを修正しましょう。 -->
           <?php if (isset($_GET['reply'])) { ?>
