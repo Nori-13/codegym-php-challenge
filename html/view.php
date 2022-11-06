@@ -5,6 +5,9 @@ require_once('functions.php');
 /* 返信課題はここからのコードを修正しましょう。 */
 $t = getTweet($_GET['id']);
 /* 返信課題はここまでのコードを修正しましょう。 */
+
+/* ここからいいね機能のコード修正  */
+/* ここまでいいね機能のコード修正*/
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +19,7 @@ $t = getTweet($_GET['id']);
   <div class="container">
     <h1 class="my-5">投稿表示</h1>
     
-    <p><a href="index.php">&lt;&lt; 掲示板に戻る</a></p>
+    <p><a href="index.php">掲示板に戻る</a></p>
     
     <div class="card mb-3">
       <div class="card-body">
