@@ -82,37 +82,30 @@ function getTweet($id)
 {
     $sql = 'select t.id, t.text, t.user_id, t.created_at, t.updated_at, u.name, t.reply_id';
     $sql .= ' from tweets t join users u on t.user_id = u.id';
-    $sql .= ' where t.id =' . "$id"; //:がないと入れる変数がないのでbindValueが必要ない
+    $sql .= ' where t.id =' . "$id";
     $stmt = getPdo()->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result;
-    //var_dump($id);
 }
 /* 返信課題はここからのコードを修正しましょう。 */
 
 /* いいね機能課題のコード修正。　*/
 function createFavorite($member_id, $post_id)
 {
-//10. sqlを実行する
     $sql = 'insert into favorites (member_id, post_id, created_at, updated_at)';
-    $sql .= ' values (:member_id, :post_id, :created_at, :updated_at)';//　:＝php状でsqlの変数を定義する　その数だけbindValueが必要
+    $sql .= ' values (:member_id, :post_id, :created_at, :updated_at)';
     $now = date("Y-m-d H:i:s");
-    $stmt = getPdo()->prepare($sql); //prepare=準備する
+    $stmt = getPdo()->prepare($sql);
     $stmt->bindValue(':member_id', $member_id, PDO::PARAM_INT);
     $stmt->bindValue(':post_id', $post_id, PDO::PARAM_INT);
     $stmt->bindValue(':created_at', $now, PDO::PARAM_STR);
-    $stmt->bindValue(':updated_at', $now, PDO::PARAM_STR); //bind=紐ずける
-    return $stmt->execute();//　execute=実行する
-    //var_dump($member_id);
-    //var_dump($post_id);
-    //var_dump($now);
+    $stmt->bindValue(':updated_at', $now, PDO::PARAM_STR);
+    return $stmt->execute();
 }
 
-//いいね機能を消去
 function deleteFavorite($member_id, $post_id)
 {
-    //DELETE FROM `favorites` WHERE member_id=1 and  post_id=5;	
     $sql = 'DELETE FROM favorites WHERE post_id = :post_id AND member_id = :member_id'; 
     $stmt = getPdo()->prepare($sql);
     $stmt->bindValue(':member_id', $member_id, PDO::PARAM_INT);
@@ -120,22 +113,18 @@ function deleteFavorite($member_id, $post_id)
     return $stmt->execute();
 }
 
-function getFavoriteUsers($post_id) //何件いいねしたsql
+function getFavoriteUsers($post_id)
 {
-    //  $sql = 'select * from users where name = :name';　参考
-    //  $stmt = getPdo()->prepare($sql);
-    //  $stmt->bindValue(':name', $name, PDO::PARAM_STR);
     $sql = 'SELECT count(id)';
     $sql .= ' FROM favorites';
-    $sql .= ' WHERE post_id = :post_id'; //調べる 複数条件
+    $sql .= ' WHERE post_id = :post_id';
     $stmt = getPdo()->prepare($sql);
-    $stmt->bindValue(':post_id', $post_id, PDO::PARAM_INT);//
+    $stmt->bindValue(':post_id', $post_id, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetchColumn();
-    //count(id)の結果を取り出している　
     return $result;
 }
- //いいねしたかどうかを判定する　count１がいいねしている　０がいいねしていない
+
 function hasFavorite($post_id, $member_id)
 {
     $sql = 'SELECT count(id)';
