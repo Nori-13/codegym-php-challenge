@@ -135,5 +135,5 @@ function hasFavorite($post_id, $member_id)
     $stmt->bindValue(':member_id', $member_id, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetchColumn();
-    return $result;
+    return ($result == 0);
 }

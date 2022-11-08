@@ -127,7 +127,7 @@ function getUserReplyText($post_id) {
           <form method="POST" name="like_form">
             <input type="hidden" name="post_id" value="<?= "{$t['id']}" ?>"/>
           <!--input type="submit" name="送信"/ -->
-          <?php if (hasFavorite($t['id'],$_SESSION['user_id']) ==0) { ?>
+          <?php if (hasFavorite($t['id'],$_SESSION['user_id'])) { ?>
           <!-- 1.いいねボタンを押す　2.name=like_formのformが実行される 3.index.phpが再読み込みされる（なぜならばformにactionが指定されていないから-->
             <input type="hidden" name="nice_button"/>
             <a href="#" onclick="this.parentNode.submit()"><img class="favorite-image" src='/images/heart-solid-gray.svg'></a>
@@ -135,7 +135,7 @@ function getUserReplyText($post_id) {
             <input type="hidden" name="delete_button"/>
             <a href="#" onclick="this.parentNode.submit()"><img class="favorite-image" src='/images/heart-solid-red.svg'></a>
           <?php } ?>
-          <?php echo getFavoriteUsers($t['id']) ?> <!-- 下にいいねの数値を取る todo -->
+          <?php echo getFavoriteUsers($t['id']) ?>
           </form> 
         
         
