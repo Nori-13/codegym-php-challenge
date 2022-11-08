@@ -126,9 +126,7 @@ function getUserReplyText($post_id) {
           <!--返信課題はここまで修正しましょう。-->
           <form method="POST" name="like_form">
             <input type="hidden" name="post_id" value="<?= "{$t['id']}" ?>"/>
-          <!--input type="submit" name="送信"/ -->
           <?php if (hasFavorite($t['id'],$_SESSION['user_id'])) { ?>
-          <!-- 1.いいねボタンを押す　2.name=like_formのformが実行される 3.index.phpが再読み込みされる（なぜならばformにactionが指定されていないから-->
             <input type="hidden" name="nice_button"/>
             <a href="#" onclick="this.parentNode.submit()"><img class="favorite-image" src='/images/heart-solid-gray.svg'></a>
           <?php } else { ?>
