@@ -65,7 +65,6 @@ function createReTweet($text, $reply_post_id, $user_id)
 /**
  * @return PDOStatement ユーザー情報の連想配列を格納したPDOStatement
  * 投稿の一覧を取得します。
- * 
  */
 function getTweets()
 {
