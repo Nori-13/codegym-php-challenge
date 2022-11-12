@@ -89,3 +89,51 @@ function getTweet($id)
     return $result;
 }
 /* 返信課題はここからのコードを修正しましょう。 */
+
+/* いいね機能課題のコード修正。　*/
+function createFavorite($member_id, $post_id)
+{
+    $sql = 'insert into favorites (member_id, post_id, created_at, updated_at)';
+    $sql .= ' values (:member_id, :post_id, :created_at, :updated_at)';
+    $now = date("Y-m-d H:i:s");
+    $stmt = getPdo()->prepare($sql);
+    $stmt->bindValue(':member_id', $member_id, PDO::PARAM_INT);
+    $stmt->bindValue(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->bindValue(':created_at', $now, PDO::PARAM_STR);
+    $stmt->bindValue(':updated_at', $now, PDO::PARAM_STR);
+    return $stmt->execute();
+}
+
+function deleteFavorite($member_id, $post_id)
+{
+    $sql = 'DELETE FROM favorites WHERE post_id = :post_id AND member_id = :member_id'; 
+    $stmt = getPdo()->prepare($sql);
+    $stmt->bindValue(':member_id', $member_id, PDO::PARAM_INT);
+    $stmt->bindValue(':post_id', $post_id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+function getFavoriteUsers($post_id)
+{
+    $sql = 'SELECT count(id)';
+    $sql .= ' FROM favorites';
+    $sql .= ' WHERE post_id = :post_id';
+    $stmt = getPdo()->prepare($sql);
+    $stmt->bindValue(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchColumn();
+    return $result;
+}
+
+function hasFavorite($post_id, $member_id)
+{
+    $sql = 'SELECT count(id)';
+    $sql .= ' FROM favorites';
+    $sql .= ' WHERE post_id = :post_id AND member_id = :member_id';
+    $stmt = getPdo()->prepare($sql);
+    $stmt->bindValue(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->bindValue(':member_id', $member_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchColumn();
+    return ($result == 0);
+}

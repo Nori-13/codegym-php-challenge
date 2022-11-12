@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 //ログインしていない場合、login.phpを表示
@@ -25,6 +24,18 @@ function newReplyTweet($tweet_textarea, $reply_post_id)
 {
     createReTweet($tweet_textarea, $reply_post_id, $_SESSION['user_id']);
 }
+
+function newFavorite($post_id)
+{
+    $member_id = $_SESSION['user_id'];
+    createFavorite($member_id, $post_id);
+}
+
+function eraseFavorite($post_id)
+{
+    $member_id = $_SESSION['user_id'];
+    deleteFavorite($member_id, $post_id);
+}
 /**
  * ログアウト処理を行う。
  */
@@ -33,8 +44,7 @@ function logout()
     $_SESSION = [];
     $msg = 'ログアウトしました。';
 }
-
-if ($_POST) { /* POST Requests */
+if ($_POST) {
     if (isset($_POST['logout'])) { //ログアウト処理
         logout();
         header("Location: login.php");
@@ -45,8 +55,15 @@ if ($_POST) { /* POST Requests */
             newtweet($_POST['tweet_textarea']);
             header("Location: index.php");
         }
+    } else if (isset($_POST['post_id'])) {
+        if (isset($_POST['nice_button'])) {
+            newFavorite($_POST['post_id']);
+        } else {
+            eraseFavorite($_POST['post_id']);
+        }
     }
 }
+
 
 $tweets = getTweets();
 $tweet_count = count($tweets);
@@ -99,13 +116,27 @@ function getUserReplyText($post_id) {
         <div class="card-body">
           <p class="card-title"><b><?= "{$t['id']}" ?></b> <?= "{$t['name']}" ?> <small><?= "{$t['updated_at']}" ?></small></p>
           <p class="card-text"><?= "{$t['text']}" ?></p>
+          
           <!--返信課題はここから修正しましょう。-->
           <?php if (isset($t['reply_id'])) { ?>
-            <a href="index.php?reply=<?= "{$t['id']}" ?>">[返信する]</a> <a href="/view.php?id=<?= "{$t['reply_id']}" ?>">[返信元のメッセージ]</a>
+            <p><a href="index.php?reply=<?= "{$t['id']}" ?>">[返信する]</a>  <a href="/view.php?id=<?= "{$t['reply_id']}" ?>">[返信元のメッセージ]</a></p>
           <?php } else { ?>
             <p><a href="index.php?reply=<?= "{$t['id']}" ?>">[返信する]</a></p>
           <?php } ?>
           <!--返信課題はここまで修正しましょう。-->
+          <form method="POST" name="like_form">
+            <input type="hidden" name="post_id" value="<?= "{$t['id']}" ?>"/>
+          <?php if (hasFavorite($t['id'],$_SESSION['user_id'])) { ?>
+            <input type="hidden" name="nice_button"/>
+            <a href="#" onclick="this.parentNode.submit()"><img class="favorite-image" src='/images/heart-solid-gray.svg'></a>
+          <?php } else { ?>
+            <input type="hidden" name="delete_button"/>
+            <a href="#" onclick="this.parentNode.submit()"><img class="favorite-image" src='/images/heart-solid-red.svg'></a>
+          <?php } ?>
+          <?php echo getFavoriteUsers($t['id']) ?>
+          </form> 
+        
+        
         </div>
       </div>
     <?php } ?>
