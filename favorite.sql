@@ -5,3 +5,4 @@ CREATE TABLE favorites(
     created_at DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id));
+    
